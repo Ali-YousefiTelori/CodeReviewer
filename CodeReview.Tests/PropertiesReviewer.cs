@@ -7,15 +7,13 @@ using Xunit;
 
 namespace CodeReview.Tests
 {
-    public class PropertiesReviewer
+    internal class PropertiesReviewer
     {
         /// <summary>
         /// check validations of public properties
         /// </summary>
-        [Fact]
-        public async Task PublicPropertiesOfClasses()
+        public void PublicPropertiesOfClasses()
         {
-            await CodeReviewTestBase.WaitForInitialization();
             StringBuilder builder = new StringBuilder();
 
             PascalCodePropertyReviewer pascalCodePropertyReviewer = new PascalCodePropertyReviewer();

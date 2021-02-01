@@ -28,7 +28,7 @@ namespace CodeReview.Engine
         /// <returns></returns>
         public static List<PropertyInfo> GetPublicProperties(this Type type)
         {
-            return type.GetProperties(BindingFlags.Public).ToList();
+            return type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).ToList();
         }
     }
 }
