@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReview", "CodeReview\CodeReview.csproj", "{425D14BF-105E-4B32-AF9E-96AC6CE8D5D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReviewer", "CodeReviewer\CodeReviewer.csproj", "{425D14BF-105E-4B32-AF9E-96AC6CE8D5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReview.Tests", "CodeReview.Tests\CodeReview.Tests.csproj", "{C0E82E3B-B17C-41AD-8F03-EBFB210FD809}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReviewer.Tests", "CodeReviewer.Tests\CodeReviewer.Tests.csproj", "{C0E82E3B-B17C-41AD-8F03-EBFB210FD809}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F705B137-8744-4437-9032-8A553E3E034B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReview.Samples", "CodeReview.Samples\CodeReview.Samples.csproj", "{58FB08AD-BA30-4FCC-B788-79F333AAA835}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReviewer.Samples", "CodeReviewer.Samples\CodeReviewer.Samples.csproj", "{58FB08AD-BA30-4FCC-B788-79F333AAA835}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engines", "Engines", "{C37BDEAE-B4B9-48E8-B590-A7E62619D4AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReview.TestSamples", "CodeReview.TestSamples\CodeReview.TestSamples.csproj", "{B301A0DB-0958-41F2-9C9E-A024EDFF5FF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeReviewer.TestSamples", "CodeReviewer.TestSamples\CodeReviewer.TestSamples.csproj", "{B301A0DB-0958-41F2-9C9E-A024EDFF5FF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

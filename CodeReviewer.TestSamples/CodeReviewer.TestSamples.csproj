@@ -13,14 +13,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.0.2">
+    <PackageReference Include="coverlet.collector" Version="1.3.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeReview\CodeReview.csproj" />
+    <ProjectReference Include="..\CodeReviewer.Samples\CodeReviewer.Samples.csproj" />
+    <ProjectReference Include="..\CodeReviewer.Tests\CodeReviewer.Tests.csproj" />
+    <ProjectReference Include="..\CodeReviewer\CodeReviewer.csproj" />
   </ItemGroup>
 
 </Project>

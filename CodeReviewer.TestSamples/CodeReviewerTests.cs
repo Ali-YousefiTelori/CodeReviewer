@@ -8,9 +8,9 @@ using Xunit;
 
 namespace CodeReview.TestSamples
 {
-    public class CodeReviewer : MainCodeReviewer
+    public class CodeReviewerTests : MainCodeReviewer
     {
-        static CodeReviewer()
+        static CodeReviewerTests()
         {
             AssemblyManager.AddAssemblyToReview(typeof(PascalCaseSample));
         }
