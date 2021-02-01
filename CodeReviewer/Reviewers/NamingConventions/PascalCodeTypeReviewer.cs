@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace CodeReview.Reviewers.NamingConventions
+namespace CodeReviewer.Reviewers.NamingConventions
 {
     public class PascalCodeTypeReviewer : PascalCodeBaseReviewer<Type>
     {

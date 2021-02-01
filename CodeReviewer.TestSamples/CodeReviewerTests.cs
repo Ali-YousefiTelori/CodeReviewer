@@ -1,12 +1,8 @@
-﻿using CodeReview.Engine;
-using CodeReview.Samples;
-using CodeReview.Tests;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using CodeReviewer.Engine;
+using CodeReviewer.Samples;
+using CodeReviewer.Tests;
 
-namespace CodeReview.TestSamples
+namespace CodeReviewer.TestSamples
 {
     public class CodeReviewerTests : MainCodeReviewer
     {

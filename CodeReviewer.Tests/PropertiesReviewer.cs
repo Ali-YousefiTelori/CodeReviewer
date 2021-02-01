@@ -1,11 +1,9 @@
-using CodeReview.Engine;
-using CodeReview.Reviewers.NamingConventions;
+using CodeReviewer.Engine;
+using CodeReviewer.Reviewers.NamingConventions;
 using System;
 using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
-namespace CodeReview.Tests
+namespace CodeReviewer.Tests
 {
     internal class PropertiesReviewer
     {

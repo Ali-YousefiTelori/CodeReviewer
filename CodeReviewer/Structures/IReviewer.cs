@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
-namespace CodeReview.Structures
+namespace CodeReviewer.Structures
 {
     /// <summary>
     /// Build a Viewer for a work

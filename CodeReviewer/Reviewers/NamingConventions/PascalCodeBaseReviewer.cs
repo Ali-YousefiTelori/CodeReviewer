@@ -1,7 +1,7 @@
-﻿using CodeReview.Structures;
+﻿using CodeReviewer.Structures;
 using System.Text;
 
-namespace CodeReview.Reviewers.NamingConventions
+namespace CodeReviewer.Reviewers.NamingConventions
 {
     /// <summary>
     /// check the codes of Pascal

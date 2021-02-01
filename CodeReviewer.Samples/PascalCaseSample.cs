@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeReview.Samples
+namespace CodeReviewer.Samples
 {
     public class PascalCaseSample
     {

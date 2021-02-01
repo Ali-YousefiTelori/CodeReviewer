@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace CodeReview.Engine
+namespace CodeReviewer.Engine
 {
     /// <summary>
     /// Manage your assemblies to review your codes

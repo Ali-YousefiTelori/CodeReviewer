@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
-namespace CodeReview.Tests
+namespace CodeReviewer.Tests
 {
     public abstract class MainCodeReviewer
     {
