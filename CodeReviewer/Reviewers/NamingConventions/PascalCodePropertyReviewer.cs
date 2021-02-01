@@ -21,9 +21,9 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// </summary>
         /// <param name="property">property to check and review</param>
         /// <param name="builder">add errors to builder</param>
-        public override void Review(PropertyInfo property, StringBuilder builder)
+        public override bool Review(PropertyInfo property, StringBuilder builder)
         {
-            Review($"{property.DeclaringType.FullName}", property.Name, builder);
+            return Review($"{property.DeclaringType.FullName}", property.Name, builder);
         }
     }
 }

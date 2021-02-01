@@ -42,8 +42,25 @@ namespace CodeReviewer.Engine
         public static List<Assembly> GetAssemblies()
         {
             return Assemblies.ToList();
-        } 
-        
+        }
+
+        /// <summary>
+        /// get list of types of assemblies
+        /// </summary>
+        /// <returns>list of all types</returns>
+        public static List<Type> GetPublicTypes()
+        {
+            List<Type> properties = new List<Type>();
+            foreach (var assembly in GetAssemblies())
+            {
+                foreach (var type in assembly.GetTypes())
+                {
+                    properties.Add(type);
+                }
+            }
+            return properties;
+        }
+
         /// <summary>
         /// get list of properties of assemblies types
         /// </summary>

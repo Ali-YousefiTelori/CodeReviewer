@@ -13,6 +13,7 @@ namespace CodeReviewer.Structures
         /// </summary>
         /// <param name="builder">add exceptions and reviews of codes on this builder</param>
         /// <param name="reviewData">data of object to review</param>
-        void Review(T reviewData, StringBuilder builder);
+        /// <returns>When it has error return true</returns>
+        bool Review(T reviewData, StringBuilder builder);
     }
 }

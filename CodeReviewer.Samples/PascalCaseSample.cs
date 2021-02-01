@@ -2,7 +2,7 @@
 
 namespace CodeReviewer.Samples
 {
-    public class PascalCaseSample
+    public class pascalCaseSample
     {
         public string myPropertyName { get; set; }
     }

@@ -18,9 +18,15 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// </summary>
         /// <param name="property">property to check and review</param>
         /// <param name="builder">add errors to builder</param>
-        public override void Review(Type type, StringBuilder builder)
+        public override bool Review(Type type, StringBuilder builder)
         {
-            Review($"{type.FullName}", type.Name, builder);
+            foreach (var name in type.FullName.Split('.'))
+            {
+                //When has error break and don't duplication
+                if (Review($"{type.FullName}", name, builder))
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CodeReviewer.Tests
         /// <summary>
         /// check validations of public properties
         /// </summary>
-        public void PublicPropertiesOfClasses()
+        public void PublicPropertiesOfClassesReview()
         {
             StringBuilder builder = new StringBuilder();
 
