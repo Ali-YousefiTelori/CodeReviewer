@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeReviewer.Engine</name>
+    </assembly>
+    <members>
+        <member name="T:CodeReviewer.Engine.AssemblyManager">
+            <summary>
+            Manage your assemblies to review your codes
+            </summary>
+        </member>
+        <member name="P:CodeReviewer.Engine.AssemblyManager.Assemblies">
+            <summary>
+            assemblies added for review
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.AddAssemblyToReview(System.Reflection.Assembly[])">
+            <summary>
+            add list of assemblies to review
+            </summary>
+            <param name="assemblies">assemblies to review</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.AddAssemblyToReview(System.Type[])">
+            <summary>
+            add list of types as assemblies to review
+            this method will get assemblies of types and add assemblies to review
+            </summary>
+            <param name="types">types that you want to add assemblies of types</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetAssemblies">
+            <summary>
+            get list of assemblies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetPublicTypes">
+            <summary>
+            get list of types of assemblies
+            </summary>
+            <returns>list of all types</returns>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetPublicProperties">
+            <summary>
+            get list of properties of assemblies types
+            </summary>
+            <returns>list of all types properties</returns>
+        </member>
+        <member name="T:CodeReviewer.Engine.TypeManager">
+            <summary>
+            manage types at runtime
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Engine.TypeManager.GetPublicMethods(System.Type)">
+            <summary>
+            get list of methods of type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeReviewer.Engine.TypeManager.GetPublicProperties(System.Type)">
+            <summary>
+            get list of public properties
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1">
+            <summary>
+            check the codes of Pascal
+            </summary>
+            <typeparam name="T">type of object to review</typeparam>
+        </member>
+        <member name="P:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1.ProviderName">
+            <summary>
+            provider name is a name that help you undrestand what is checking as name
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1.Review(`0,System.Text.StringBuilder)">
+            <summary>
+            review an object of pascal cases
+            </summary>
+            <param name="reviewData"></param>
+            <param name="builder"></param>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1.Review(System.String,System.String,System.Text.StringBuilder)">
+            <summary>
+            review a name with a PascalCase
+            </summary>
+            <param name="pathName"></param>
+            <param name="name">name to review</param>
+            <param name="builder">save errors and messages in builder</param>
+            <returns>when it has error will return true</returns>
+        </member>
+        <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodePropertyReviewer">
+            <summary>
+            Pascal codes of property checks
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodePropertyReviewer.#ctor">
+            <summary>
+            initialize
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodePropertyReviewer.Review(System.Reflection.PropertyInfo,System.Text.StringBuilder)">
+            <summary>
+            Review a property name
+            </summary>
+            <param name="property">property to check and review</param>
+            <param name="builder">add errors to builder</param>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeTypeReviewer.#ctor">
+            <summary>
+            initialize
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeTypeReviewer.Review(System.Type,System.Text.StringBuilder)">
+            <summary>
+            Review a property name
+            </summary>
+            <param name="property">property to check and review</param>
+            <param name="builder">add errors to builder</param>
+        </member>
+        <member name="T:CodeReviewer.Structures.IReviewer`1">
+            <summary>
+            Build a Viewer for a work
+            </summary>
+            <typeparam name="T">type of object to review</typeparam>
+        </member>
+        <member name="M:CodeReviewer.Structures.IReviewer`1.Review(`0,System.Text.StringBuilder)">
+            <summary>
+            do the review of code
+            </summary>
+            <param name="builder">add exceptions and reviews of codes on this builder</param>
+            <param name="reviewData">data of object to review</param>
+            <returns>When it has error return true</returns>
+        </member>
+    </members>
+</doc>

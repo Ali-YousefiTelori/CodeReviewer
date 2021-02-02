@@ -1,22 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>CodeReviewer</PackageId>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>Ali Yousefi Telori</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
-    <Version>0.1.0-preview1</Version>
+    <Version>0.1.0-preview3</Version>
     <Product>CodeReviewer</Product>
     <Description>Review your codes with test cases</Description>
     <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GenerateNuspecDependsOn>MyCustomizePacking</GenerateNuspecDependsOn>
     <DebugType>full</DebugType>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <DebugSymbols>true</DebugSymbols>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,24 +26,33 @@
 
     <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DocumentationFile>D:\Github\CodeReview\CodeReviewer.Tests\CodeReviewer.Tests.xml</DocumentationFile>
   </PropertyGroup>
   
+  <Target Name="MyCustomizePacking" Returns="@(NuGetPackInput);@(_BuildOutputInPackage);@(_TargetPathsToSymbols)">
+    <ItemGroup>
+      <!--<NuGetPackInput Remove="@(BuiltProjectOutputGroupKeyOutput);@(DebugSymbolsProjectOutputGroupOutput)"/>
+      <_BuildOutputInPackage Remove="@(BuiltProjectOutputGroupKeyOutput)"/>
+      <_TargetPathsToSymbols Remove="@(DebugSymbolsProjectOutputGroupOutput)"/>-->
+
+      <NuGetPackInput Include="@(ReferenceCopyLocalPaths);@(AllItemsFullPathWithTargetPath)" />
+      <_BuildOutputInPackage Include="%(ReferenceCopyLocalPaths.Identity)" >
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+      </_BuildOutputInPackage>
+      <_BuildOutputInPackage Include="%(AllItemsFullPathWithTargetPath.Identity)" >
+        <TargetFramework>$(TargetFramework)</TargetFramework>
+      </_BuildOutputInPackage>
+    </ItemGroup>
+  </Target>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.0-preview-20210127-04" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.0.2">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="xunit.core" Version="2.4.1" />
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\CodeReviewer.Engine\CodeReviewer.Engine.csproj" />
+    <ProjectReference Include="..\CodeReviewer.Engine\CodeReviewer.Engine.csproj">
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>CodeReviewer.Engine.dll</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
 </Project>
