@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeReviewer.Tests</name>
+    </assembly>
+    <members>
+        <member name="M:CodeReviewer.Tests.PropertiesReviewer.PublicPropertiesOfClassesReview">
+            <summary>
+            check validations of public properties
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Tests.TypeReviewer.PublicTypesReview">
+            <summary>
+            check validations of public types
+            </summary>
+        </member>
+    </members>
+</doc>
