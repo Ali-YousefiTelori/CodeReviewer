@@ -12,6 +12,8 @@ namespace CodeReviewer.Tests
         [Fact]
         public void TypePascalCodeReview() => new TypeReviewer().PublicTypesReview();
 
+        [Fact]
+        public void MethodPascalCodeReview() => new MethodsReviewer().PublicMethodsOfClassesReview();
         #endregion
 
     }

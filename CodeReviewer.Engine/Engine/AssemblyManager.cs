@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace CodeReviewer.Engine
 {
@@ -73,6 +72,23 @@ namespace CodeReviewer.Engine
                 foreach (var type in assembly.GetTypes())
                 {
                     properties.AddRange(TypeManager.GetPublicProperties(type));
+                }
+            }
+            return properties;
+        }
+
+        /// <summary>
+        /// get list of methods of assemblies types
+        /// </summary>
+        /// <returns>list of all types properties</returns>
+        public static List<MethodInfo> GetMethodsOfProperties()
+        {
+            List<MethodInfo> properties = new List<MethodInfo>();
+            foreach (var assembly in GetAssemblies())
+            {
+                foreach (var type in assembly.GetTypes())
+                {
+                    properties.AddRange(TypeManager.GetPublicMethods(type));
                 }
             }
             return properties;

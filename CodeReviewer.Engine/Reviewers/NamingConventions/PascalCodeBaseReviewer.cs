@@ -25,19 +25,19 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// review a name with a PascalCase
         /// </summary>
         /// <param name="pathName"></param>
-        /// <param name="name">name to review</param>
+        /// <param name="nameToReview">name to review</param>
         /// <param name="builder">save errors and messages in builder</param>
         /// <returns>when it has error will return true</returns>
-        public bool Review(string pathName, string name, StringBuilder builder)
+        public bool Review(string pathName, string nameToReview, StringBuilder builder)
         {
-            if (name == null || name.Length == 0)
+            if (nameToReview == null || nameToReview.Length == 0)
             {
                 builder.AppendLine($"You cannot review empty name of {pathName}");
                 return true;
             }
-            else if (!char.IsUpper(name[0]))
+            else if (!char.IsUpper(nameToReview[0]))
             {
-                builder.AppendLine($"Pascal case of {ProviderName} of type {pathName} with name {name} is not a valid pascal case naming conventions!");
+                builder.AppendLine($"Pascal case of {ProviderName} of type {pathName} with name {nameToReview} is not a valid pascal case naming conventions!");
                 return true;
             }
             return false;
