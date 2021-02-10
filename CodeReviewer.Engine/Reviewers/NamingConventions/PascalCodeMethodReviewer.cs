@@ -16,17 +16,26 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// </summary>
         public PascalCodeMethodReviewer()
         {
-            ProviderName = "Property";
+            ProviderName = "Method";
         }
 
         /// <summary>
         /// Review a method name
         /// </summary>
-        /// <param name="property">property to check and review</param>
+        /// <param name="method">method to check and review</param>
         /// <param name="builder">add errors to builder</param>
         public override bool Review(MethodInfo method, StringBuilder builder)
         {
-            return Review($"{method.DeclaringType.FullName}", method.Name, builder);
+            var hasError = Review($"{method.DeclaringType.FullName}", method.Name, builder);
+
+            //review parameters of method
+            foreach (var parameter in method.GetParameters())
+            {
+                if (new CamelCodeMethodParameterReviewer(method.DeclaringType).Review(parameter, builder))
+                    hasError = true;
+            }
+
+            return hasError;
         }
     }
 }

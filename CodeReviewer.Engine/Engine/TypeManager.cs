@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace CodeReviewer.Engine
 {
@@ -18,7 +17,8 @@ namespace CodeReviewer.Engine
         /// <returns></returns>
         public static List<MethodInfo> GetPublicMethods(this Type type)
         {
-            return type.GetMethods(BindingFlags.Public).ToList();
+            return type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                .Where(x => !x.IsSpecialName).ToList();
         }
 
         /// <summary>

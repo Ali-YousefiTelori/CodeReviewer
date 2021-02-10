@@ -4,6 +4,11 @@
         <name>CodeReviewer.Tests</name>
     </assembly>
     <members>
+        <member name="M:CodeReviewer.Tests.MethodsReviewer.PublicMethodsOfClassesReview">
+            <summary>
+            check validations of public properties
+            </summary>
+        </member>
         <member name="M:CodeReviewer.Tests.PropertiesReviewer.PublicPropertiesOfClassesReview">
             <summary>
             check validations of public properties

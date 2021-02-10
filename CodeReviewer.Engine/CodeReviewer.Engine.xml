@@ -45,6 +45,12 @@
             </summary>
             <returns>list of all types properties</returns>
         </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetMethodsOfProperties">
+            <summary>
+            get list of methods of assemblies types
+            </summary>
+            <returns>list of all types properties</returns>
+        </member>
         <member name="T:CodeReviewer.Engine.TypeManager">
             <summary>
             manage types at runtime
@@ -87,9 +93,43 @@
             review a name with a PascalCase
             </summary>
             <param name="pathName"></param>
-            <param name="name">name to review</param>
+            <param name="nameToReview">name to review</param>
             <param name="builder">save errors and messages in builder</param>
             <returns>when it has error will return true</returns>
+        </member>
+        <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodParameterReviewer">
+            <summary>
+            Pascal codes of Method parameter check
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodParameterReviewer.#ctor">
+            <summary>
+            initialize
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodParameterReviewer.Review(System.Reflection.ParameterInfo,System.Text.StringBuilder)">
+            <summary>
+            Review a parameter name of method
+            </summary>
+            <param name="parameter">parameter to check and review</param>
+            <param name="builder">add errors to builder</param>
+        </member>
+        <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodReviewer">
+            <summary>
+            Pascal codes of Methods check
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodReviewer.#ctor">
+            <summary>
+            initialize
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeMethodReviewer.Review(System.Reflection.MethodInfo,System.Text.StringBuilder)">
+            <summary>
+            Review a method name
+            </summary>
+            <param name="method">method to check and review</param>
+            <param name="builder">add errors to builder</param>
         </member>
         <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodePropertyReviewer">
             <summary>
