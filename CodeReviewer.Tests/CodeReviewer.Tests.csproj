@@ -7,7 +7,7 @@
     <Authors>Ali Yousefi Telori</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
-    <Version>0.1.0-preview3</Version>
+    <Version>0.1.0-preview4</Version>
     <Product>CodeReviewer</Product>
     <Description>Review your codes with test cases</Description>
     <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
@@ -36,10 +36,10 @@
       <_TargetPathsToSymbols Remove="@(DebugSymbolsProjectOutputGroupOutput)"/>-->
 
       <NuGetPackInput Include="@(ReferenceCopyLocalPaths);@(AllItemsFullPathWithTargetPath)" />
-      <_BuildOutputInPackage Include="%(ReferenceCopyLocalPaths.Identity)" >
+      <_BuildOutputInPackage Include="%(ReferenceCopyLocalPaths.Identity)">
         <TargetFramework>$(TargetFramework)</TargetFramework>
       </_BuildOutputInPackage>
-      <_BuildOutputInPackage Include="%(AllItemsFullPathWithTargetPath.Identity)" >
+      <_BuildOutputInPackage Include="%(AllItemsFullPathWithTargetPath.Identity)">
         <TargetFramework>$(TargetFramework)</TargetFramework>
       </_BuildOutputInPackage>
     </ItemGroup>

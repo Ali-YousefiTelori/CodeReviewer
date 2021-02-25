@@ -28,7 +28,7 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// <param name="nameToReview">name to review</param>
         /// <param name="builder">save errors and messages in builder</param>
         /// <returns>when it has error will return true</returns>
-        public bool Review(string pathName, string nameToReview, StringBuilder builder)
+        public virtual bool Review(string pathName, string nameToReview, StringBuilder builder)
         {
             if (nameToReview == null || nameToReview.Length == 0)
             {
