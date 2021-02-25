@@ -11,4 +11,14 @@ namespace CodeReviewer.Samples
 
         }
     }
+
+    public interface Iinterface
+    {
+
+    }
+
+    public interface Myinterface
+    {
+
+    }
 }
