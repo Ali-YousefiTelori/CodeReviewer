@@ -50,9 +50,9 @@ namespace CodeReviewer.Engine
         public static List<Type> GetPublicTypes()
         {
             List<Type> properties = new List<Type>();
-            foreach (var assembly in GetAssemblies())
+            foreach (Assembly assembly in GetAssemblies())
             {
-                foreach (var type in assembly.GetTypes())
+                foreach (Type type in assembly.GetTypes())
                 {
                     properties.Add(type);
                 }
@@ -67,9 +67,9 @@ namespace CodeReviewer.Engine
         public static List<PropertyInfo> GetPublicProperties()
         {
             List<PropertyInfo> properties = new List<PropertyInfo>();
-            foreach (var assembly in GetAssemblies())
+            foreach (Assembly assembly in GetAssemblies())
             {
-                foreach (var type in assembly.GetTypes())
+                foreach (Type type in assembly.GetTypes())
                 {
                     properties.AddRange(TypeManager.GetPublicProperties(type));
                 }
@@ -84,9 +84,9 @@ namespace CodeReviewer.Engine
         public static List<MethodInfo> GetMethodsOfProperties()
         {
             List<MethodInfo> properties = new List<MethodInfo>();
-            foreach (var assembly in GetAssemblies())
+            foreach (Assembly assembly in GetAssemblies())
             {
-                foreach (var type in assembly.GetTypes())
+                foreach (Type type in assembly.GetTypes())
                 {
                     properties.AddRange(TypeManager.GetPublicMethods(type));
                 }

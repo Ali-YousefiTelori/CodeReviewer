@@ -10,7 +10,7 @@ namespace CodeReviewer.TestSamples
         static CodeReviewerTests()
         {
             //types to check (this will check all of types in assembly so no need to add all of types of assembly)
-            AssemblyManager.AddAssemblyToReview(typeof(pascalCaseSample));
+            AssemblyManager.AddAssemblyToReview(typeof(System.Type));
             //enum types to check has "Type" suffix like GenderType
             CustomCodeReviewerManager.AddCustomTypeSuffixNamingCodeReviewer(x => x.IsEnum, CheckType.TypeName, System.StringComparison.Ordinal, "Type");
             //check properties and methods and fields that has "Type" suffix like GetGenderType()
