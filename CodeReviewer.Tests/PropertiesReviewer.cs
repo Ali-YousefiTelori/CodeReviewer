@@ -1,12 +1,14 @@
 using CodeReviewer.Engine;
 using CodeReviewer.Reviewers.NamingConventions;
 using System;
+using System.Reflection;
 using System.Text;
 
 namespace CodeReviewer.Tests
 {
     internal class PropertiesReviewer
     {
+        public static bool IsThrowInverse { get; set; }
         /// <summary>
         /// check validations of public properties
         /// </summary>
@@ -15,13 +17,16 @@ namespace CodeReviewer.Tests
             StringBuilder builder = new StringBuilder();
 
             PascalCodePropertyReviewer pascalCodePropertyReviewer = new PascalCodePropertyReviewer();
-            foreach (var publicProperty in AssemblyManager.GetPublicProperties())
+            foreach (PropertyInfo publicProperty in AssemblyManager.GetPublicProperties())
             {
                 pascalCodePropertyReviewer.Review(publicProperty, builder);
             }
 
-            if (builder.Length > 0)
+
+            if (!IsThrowInverse && builder.Length > 0)
                 throw new Exception(builder.ToString());
+            if (IsThrowInverse && builder.Length == 0)
+                throw new Exception("There is no error found!");
         }
     }
 }

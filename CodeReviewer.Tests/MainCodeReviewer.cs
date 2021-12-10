@@ -7,14 +7,23 @@ namespace CodeReviewer.Tests
         #region Pascal Code Reviewer
 
         [Fact]
-        public void PropertiesReview() => new PropertiesReviewer().PublicPropertiesOfClassesReview();
+        public virtual void PropertiesReview() => new PropertiesReviewer().PublicPropertiesOfClassesReview();
 
         [Fact]
-        public void TypePascalCodeReview() => new TypeReviewer().PublicTypesReview();
+        public virtual void TypePascalCodeReview() => new TypeReviewer().PublicTypesReview();
 
         [Fact]
-        public void MethodPascalCodeReview() => new MethodsReviewer().PublicMethodsOfClassesReview();
+        public virtual void MethodPascalCodeReview() => new MethodsReviewer().PublicMethodsOfClassesReview();
         #endregion
 
+        #region Custom Code Reviewer
+
+        [Fact]
+        public virtual void SuffixCodeReview() => new CustomCodeReviewer().CheckCustomTypeSuffixNamingCodeReviewer();
+
+        [Fact]
+        public virtual void PrefixCodeReview() => new CustomCodeReviewer().CheckCustomTypePrefixNamingCodeReviewer();
+
+        #endregion
     }
 }
