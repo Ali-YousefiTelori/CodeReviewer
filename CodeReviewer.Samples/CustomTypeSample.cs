@@ -14,5 +14,11 @@
         public bool Passport { get; set; }
         public bool HasPassport2 { get; set; }
         public bool IsMale { get; set; }
+
+        public bool Valid()
+        {
+            return false;
+        }
     }
+
 }

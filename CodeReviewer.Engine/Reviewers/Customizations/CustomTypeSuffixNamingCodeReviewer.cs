@@ -3,6 +3,7 @@ using CodeReviewer.Structures;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace CodeReviewer.Reviewers.Customizations
@@ -69,7 +70,7 @@ namespace CodeReviewer.Reviewers.Customizations
                 bool hasClass = (_checkType & CheckType.TypeName) == CheckType.TypeName;
                 if (hasClass && CheckHasErrorsOnSuffixOrPrefix(reviewData.Name, out string[] errorCaptions))
                 {
-                    builder.AppendLine($"Type of {reviewData.FullName} has not used {string.Join(" or ", errorCaptions)}");
+                    builder.AppendLine($"Type of \"{reviewData.FullName}\" has not used {string.Join(" or ", errorCaptions)}");
                     hasError = true;
                 }
 
@@ -82,7 +83,33 @@ namespace CodeReviewer.Reviewers.Customizations
                         {
                             if (_checkInsideOfTypeReviewerFunc(property.PropertyType) && CheckHasErrorsOnSuffixOrPrefix(property.Name, out errorCaptions))
                             {
-                                builder.AppendLine($"Type of {reviewData.FullName} with property name of {property.Name} has not used {string.Join(" or ", errorCaptions)}");
+                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Property name of \"{property.Name}\" has not used {string.Join(" or ", errorCaptions)}");
+                                hasError = true;
+                            }
+                        }
+                    }
+
+                    bool hasField = (_checkType & CheckType.FieldName) == CheckType.FieldName;
+                    if (hasField)
+                    {
+                        foreach (FieldInfo field in reviewData.GetRuntimeFields())
+                        {
+                            if (!field.GetCustomAttributes().Any(att => att is CompilerGeneratedAttribute) && _checkInsideOfTypeReviewerFunc(field.FieldType) && CheckHasErrorsOnSuffixOrPrefix(field.Name, out errorCaptions))
+                            {
+                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Field name of \"{field.Name}\" has not used {string.Join(" or ", errorCaptions)}");
+                                hasError = true;
+                            }
+                        }
+                    }
+
+                    bool hasMethod = (_checkType & CheckType.MethodName) == CheckType.MethodName;
+                    if (hasMethod)
+                    {
+                        foreach (MethodInfo method in reviewData.GetPublicMethods())
+                        {
+                            if (_checkInsideOfTypeReviewerFunc(method.ReturnType) && CheckHasErrorsOnSuffixOrPrefix(method.Name, out errorCaptions))
+                            {
+                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Method name of \"{method.Name}\" has not used {string.Join(" or ", errorCaptions)}");
                                 hasError = true;
                             }
                         }

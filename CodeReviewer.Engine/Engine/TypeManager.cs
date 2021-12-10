@@ -17,8 +17,9 @@ namespace CodeReviewer.Engine
         /// <returns></returns>
         public static List<MethodInfo> GetPublicMethods(this Type type)
         {
+            List<MethodInfo> objectMethods = typeof(object).GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).ToList();
             return type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                .Where(x => !x.IsSpecialName).ToList();
+                .Where(x => !x.IsSpecialName).Where(x => !objectMethods.Any(om => om.Name == x.Name)).ToList();
         }
 
         /// <summary>
