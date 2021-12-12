@@ -1,6 +1,7 @@
 ﻿using CodeReviewer.Engine;
 using CodeReviewer.Reviewers.NamingConventions;
 using System;
+using System.Reflection;
 using System.Text;
 
 namespace CodeReviewer.Tests
@@ -15,7 +16,7 @@ namespace CodeReviewer.Tests
             StringBuilder builder = new StringBuilder();
 
             PascalCodeMethodReviewer pascalCodePropertyReviewer = new PascalCodeMethodReviewer();
-            foreach (var publicMethod in AssemblyManager.GetMethodsOfProperties())
+            foreach (MethodInfo publicMethod in AssemblyManager.GetMethodsOfProperties())
             {
                 pascalCodePropertyReviewer.Review(publicMethod, builder);
             }

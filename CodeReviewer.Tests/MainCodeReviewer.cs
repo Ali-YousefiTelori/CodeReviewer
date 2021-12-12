@@ -25,5 +25,12 @@ namespace CodeReviewer.Tests
         public virtual void PrefixCodeReview() => new CustomCodeReviewer().CheckCustomTypePrefixNamingCodeReviewer();
 
         #endregion
+
+        #region Interface
+
+        [Fact]
+        public virtual void MarkupInterfaceReview() => new InterfaceReviewer().MarkupInterfaceReview();
+        
+        #endregion
     }
 }
