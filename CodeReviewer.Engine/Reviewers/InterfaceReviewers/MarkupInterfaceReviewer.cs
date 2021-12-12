@@ -11,7 +11,7 @@ namespace CodeReviewer.Reviewers.InterfaceReviewers
         {
             if (type.IsInterface)
             {
-                if (type.GetPublicMethods().Count == 0 && type.GetPublicProperties().Count == 0)
+                if (type.GetMembers().Length == 0)
                     builder.AppendLine($"AVOID using marker interfaces (interfaces with no members).! typeof {type.FullName}");
             }
 
