@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GenerateNuspecDependsOn>MyCustomizePacking</GenerateNuspecDependsOn>
+    <GenerateNuspecDependsOn>CodeReviewer</GenerateNuspecDependsOn>
     <DebugType>full</DebugType>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <DebugSymbols>true</DebugSymbols>
@@ -26,10 +26,9 @@
 
     <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
-    <DocumentationFile>D:\Github\CodeReview\CodeReviewer.Tests\CodeReviewer.Tests.xml</DocumentationFile>
   </PropertyGroup>
   
-  <Target Name="MyCustomizePacking" Returns="@(NuGetPackInput);@(_BuildOutputInPackage);@(_TargetPathsToSymbols)">
+  <Target Name="CodeReviewer" Returns="@(NuGetPackInput);@(_BuildOutputInPackage);@(_TargetPathsToSymbols)">
     <ItemGroup>
       <!--<NuGetPackInput Remove="@(BuiltProjectOutputGroupKeyOutput);@(DebugSymbolsProjectOutputGroupOutput)"/>
       <_BuildOutputInPackage Remove="@(BuiltProjectOutputGroupKeyOutput)"/>
