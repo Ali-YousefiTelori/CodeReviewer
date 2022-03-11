@@ -54,6 +54,8 @@ namespace CodeReviewer.Engine
             {
                 foreach (Type type in assembly.GetTypes())
                 {
+                    if (type.Name.StartsWith("<>f__AnonymousType"))
+                        continue;
                     properties.Add(type);
                 }
             }
