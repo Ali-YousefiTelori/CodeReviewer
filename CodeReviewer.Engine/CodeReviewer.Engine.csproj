@@ -2,31 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>CodeReviewer</RootNamespace>
-    <PackageId>CodeReviewer</PackageId>
-    <Platforms>AnyCPU;x64;x86</Platforms>
-    <Authors>Ali Yousefi Telori</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IsPackable>true</IsPackable>
-    <Version>0.1.0-preview4</Version>
-    <Product>CodeReviewer</Product>
-    <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
-    <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>CodeReviewer,Code,Reviewer,Review,Lead</PackageTags>
-    <DebugType>full</DebugType>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    <DebugSymbols>true</DebugSymbols>
-    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-
-    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-
-    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

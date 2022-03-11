@@ -2,6 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>CodeReviewer</RootNamespace>
+    <PackageId>CodeReviewer</PackageId>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Authors>Ali Yousefi Telori</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <Version>1.0.1</Version>
+    <Product>CodeReviewer</Product>
+    <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
+    <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>CodeReviewer,Code,Reviewer,Review,Lead</PackageTags>
+    <DebugType>full</DebugType>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <DebugSymbols>true</DebugSymbols>
+    <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +35,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeReviewer.Engine\CodeReviewer.Engine.csproj" />
+    <ProjectReference Include="..\CodeReviewer.Engine\CodeReviewer.Engine.csproj" >
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>CodeReviewer.Engine.dll</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
+  <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+    </ItemGroup>
+  </Target>
 </Project>
