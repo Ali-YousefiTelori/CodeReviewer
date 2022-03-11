@@ -62,15 +62,15 @@ namespace CodeReviewer.Reviewers.Customizations
             StringComparison = stringComparison;
         }
 
-        public override bool Review(Type reviewData, StringBuilder builder)
+        public override bool Review(Type reviewType, StringBuilder builder)
         {
-            if (_checkTypeReviewerFunc(reviewData))
+            if (_checkTypeReviewerFunc(reviewType))
             {
                 bool hasError = false;
                 bool hasClass = (_checkType & CheckType.TypeName) == CheckType.TypeName;
-                if (hasClass && CheckHasErrorsOnSuffixOrPrefix(reviewData.Name, out string[] errorCaptions))
+                if (hasClass && CheckHasErrorsOnSuffixOrPrefix(reviewType.Name, out string[] errorCaptions))
                 {
-                    builder.AppendLine($"Type of \"{reviewData.FullName}\" has not used {string.Join(" or ", errorCaptions)}");
+                    builder.AppendLine($"Type of \"{reviewType.FullName}\" has not used {string.Join(" or ", errorCaptions)}");
                     hasError = true;
                 }
 
@@ -79,11 +79,11 @@ namespace CodeReviewer.Reviewers.Customizations
                     bool hasProperty = (_checkType & CheckType.PropertyName) == CheckType.PropertyName;
                     if (hasProperty)
                     {
-                        foreach (PropertyInfo property in reviewData.GetPublicProperties())
+                        foreach (PropertyInfo property in reviewType.GetPublicProperties())
                         {
                             if (_checkInsideOfTypeReviewerFunc(property.PropertyType) && CheckHasErrorsOnSuffixOrPrefix(property.Name, out errorCaptions))
                             {
-                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Property name of \"{property.Name}\" has not used {string.Join(" or ", errorCaptions)}");
+                                builder.AppendLine($"Type of \"{reviewType.FullName}\" with Property name of \"{property.Name}\" has not used {string.Join(" or ", errorCaptions)}");
                                 hasError = true;
                             }
                         }
@@ -92,11 +92,11 @@ namespace CodeReviewer.Reviewers.Customizations
                     bool hasField = (_checkType & CheckType.FieldName) == CheckType.FieldName;
                     if (hasField)
                     {
-                        foreach (FieldInfo field in reviewData.GetRuntimeFields())
+                        foreach (FieldInfo field in reviewType.GetRuntimeFields())
                         {
                             if (!field.GetCustomAttributes().Any(att => att is CompilerGeneratedAttribute) && _checkInsideOfTypeReviewerFunc(field.FieldType) && CheckHasErrorsOnSuffixOrPrefix(field.Name, out errorCaptions))
                             {
-                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Field name of \"{field.Name}\" has not used {string.Join(" or ", errorCaptions)}");
+                                builder.AppendLine($"Type of \"{reviewType.FullName}\" with Field name of \"{field.Name}\" has not used {string.Join(" or ", errorCaptions)}");
                                 hasError = true;
                             }
                         }
@@ -105,12 +105,45 @@ namespace CodeReviewer.Reviewers.Customizations
                     bool hasMethod = (_checkType & CheckType.MethodName) == CheckType.MethodName;
                     if (hasMethod)
                     {
-                        foreach (MethodInfo method in reviewData.GetPublicMethods())
+                        foreach (MethodInfo method in reviewType.GetPublicMethods())
                         {
                             if (_checkInsideOfTypeReviewerFunc(method.ReturnType) && CheckHasErrorsOnSuffixOrPrefix(method.Name, out errorCaptions))
                             {
-                                builder.AppendLine($"Type of \"{reviewData.FullName}\" with Method name of \"{method.Name}\" has not used {string.Join(" or ", errorCaptions)}");
+                                builder.AppendLine($"Type of \"{reviewType.FullName}\" with Method name of \"{method.Name}\" has not used {string.Join(" or ", errorCaptions)}");
                                 hasError = true;
+                            }
+                        }
+                    }
+
+                    bool hasMethodParameter = (_checkType & CheckType.MethodParameterName) == CheckType.MethodParameterName;
+                    if (hasMethodParameter)
+                    {
+                        foreach (MethodInfo method in reviewType.GetPublicMethods())
+                        {
+                            foreach (ParameterInfo methodParameter in method.GetParameters())
+                            {
+                                if (_checkInsideOfTypeReviewerFunc(methodParameter.ParameterType) && CheckHasErrorsOnSuffixOrPrefix(methodParameter.Name, out errorCaptions))
+                                {
+                                    builder.AppendLine($"Type of \"{reviewType.FullName}\" with Method name of \"{method.Name}\" with Parameter name of \"{methodParameter.Name}\"  has not used {string.Join(" or ", errorCaptions)}");
+                                    hasError = true;
+                                }
+                            }
+                        }
+                    }
+
+
+                    bool hasConstructorParameter = (_checkType & CheckType.ConstructorParameterName) == CheckType.ConstructorParameterName;
+                    if (hasConstructorParameter)
+                    {
+                        foreach (ConstructorInfo constructor in reviewType.GetConstructors())
+                        {
+                            foreach (ParameterInfo constructorParameter in constructor.GetParameters())
+                            {
+                                if (_checkInsideOfTypeReviewerFunc(constructorParameter.ParameterType) && CheckHasErrorsOnSuffixOrPrefix(constructorParameter.Name, out errorCaptions))
+                                {
+                                    builder.AppendLine($"Type of \"{reviewType.FullName}\" with Constructor of \"{constructor}\" with Parameter name of \"{constructorParameter.Name}\"  has not used {string.Join(" or ", errorCaptions)}");
+                                    hasError = true;
+                                }
                             }
                         }
                     }
