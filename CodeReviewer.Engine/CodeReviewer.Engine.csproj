@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>CodeReviewer</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>CodeReviewer</PackageId>
+    <Authors>Ali Yousefi</Authors>
+    <Product>CodeReviewer</Product>
+    <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
+    <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</RepositoryUrl>
+    <PackageTags>CodeReviewer,Code,Reviewer,Review,Lead</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
