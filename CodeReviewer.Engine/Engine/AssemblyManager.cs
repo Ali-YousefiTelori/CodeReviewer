@@ -54,7 +54,7 @@ namespace CodeReviewer.Engine
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    if (type.Name.StartsWith("<>f__AnonymousType"))
+                    if (CustomCodeReviewerManager.SkippedTypesCodeReviewer.Contains(type))
                         continue;
                     properties.Add(type);
                 }

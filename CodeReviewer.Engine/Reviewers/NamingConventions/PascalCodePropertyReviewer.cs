@@ -23,7 +23,7 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// <param name="builder">add errors to builder</param>
         public override bool Review(PropertyInfo property, StringBuilder builder)
         {
-            return Review($"{property.DeclaringType.FullName}", property.Name, builder);
+            return Review(property.DeclaringType, $"{property.DeclaringType.FullName}", property.Name, builder);
         }
     }
 }

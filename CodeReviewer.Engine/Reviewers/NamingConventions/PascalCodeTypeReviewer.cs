@@ -39,13 +39,13 @@ namespace CodeReviewer.Reviewers.NamingConventions
                 }
 
                 name = name.Substring(1);
-                if (Review($"{type.FullName}", name, builder))
+                if (Review(type.DeclaringType, $"{type.FullName}", name, builder))
                     hasError = true;
             }
 
             foreach (var name in type.FullName.Split('.'))
             {
-                if (Review($"{type.FullName}", name, builder))
+                if (Review(type.DeclaringType, $"{type.FullName}", name, builder))
                     hasError = true;
             }
 

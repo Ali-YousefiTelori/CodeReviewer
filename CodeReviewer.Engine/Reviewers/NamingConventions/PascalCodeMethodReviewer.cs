@@ -1,7 +1,4 @@
-﻿using CodeReviewer.Reviewers.NamingConventions;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
 
 namespace CodeReviewer.Reviewers.NamingConventions
@@ -26,7 +23,7 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// <param name="builder">add errors to builder</param>
         public override bool Review(MethodInfo method, StringBuilder builder)
         {
-            var hasError = Review($"{method.DeclaringType.FullName}", method.Name, builder);
+            var hasError = Review(method.DeclaringType, $"{method.DeclaringType.FullName}", method.Name, builder);
 
             //review parameters of method
             foreach (var parameter in method.GetParameters())

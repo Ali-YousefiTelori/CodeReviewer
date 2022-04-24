@@ -8,6 +8,7 @@ namespace CodeReviewer.Engine
     public static class CustomCodeReviewerManager
     {
         public static List<IReviewer> CustomCodeReviewer { get; } = new List<IReviewer>();
+        internal static List<Type> SkippedTypesCodeReviewer { get; } = new List<Type>();
 
         /// <summary>
         /// check suffix text naming of custom types
@@ -61,6 +62,15 @@ namespace CodeReviewer.Engine
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializePrefix(checkTypeReviewerFunc, checkInsideOfTypeReviewerFunc, checkType, stringComparison, prefixes);
             CustomCodeReviewer.Add(reviewer);
+        }
+
+        /// <summary>
+        /// skip this type to review
+        /// </summary>
+        /// <param name="type">This type will skip to review</param>
+        public static void AddTypeToSkipCodeReviewer(params Type[] types)
+        {
+            SkippedTypesCodeReviewer.AddRange(types);
         }
     }
 }

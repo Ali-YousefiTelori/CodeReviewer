@@ -1,4 +1,5 @@
 ﻿using CodeReviewer.Structures;
+using System;
 using System.Text;
 
 namespace CodeReviewer.Reviewers.NamingConventions
@@ -13,7 +14,6 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// provider name is a name that help you undrestand what is checking as name
         /// </summary>
         protected string ProviderName { get; set; }
-
         /// <summary>
         /// review an object of pascal cases
         /// </summary>
@@ -28,19 +28,31 @@ namespace CodeReviewer.Reviewers.NamingConventions
         /// <param name="nameToReview">name to review</param>
         /// <param name="builder">save errors and messages in builder</param>
         /// <returns>when it has error will return true</returns>
-        public virtual bool Review(string pathName, string nameToReview, StringBuilder builder)
+        public virtual bool Review(Type declaringType, string pathName, string nameToReview, StringBuilder builder)
         {
+            if (declaringType == null)
+                return false;
             if (nameToReview == null || nameToReview.Length == 0)
             {
-                builder.AppendLine($"You cannot review empty name of {pathName}");
+                builder.AppendLine($"You cannot review empty name of {GetPathNameDetails(declaringType, pathName)}");
                 return true;
             }
             else if (!char.IsUpper(nameToReview[0]))
             {
-                builder.AppendLine($"Pascal case of {ProviderName} of type {pathName} with name {nameToReview} is not a valid pascal case naming conventions!");
+                builder.AppendLine($"Pascal case of {ProviderName} of type {GetPathNameDetails(declaringType, pathName)} with name {nameToReview} is not a valid pascal case naming conventions!");
                 return true;
             }
             return false;
+        }
+
+        string GetPathNameDetails(Type declaringType, string pathName)
+        {
+            if (pathName.StartsWith("<>f__AnonymousType"))
+            {
+                return $"AnonymousType generated in your codes with name of {pathName} in assembly {declaringType?.Assembly?.FullName} (That you can find and fix it)";
+            }
+            else
+                return pathName;
         }
     }
 }
