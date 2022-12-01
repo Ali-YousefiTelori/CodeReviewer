@@ -1,4 +1,5 @@
-﻿using CodeReviewer.Reviewers.Customizations;
+﻿using CodeReviewer.Engine.Reviewers.Customizations;
+using CodeReviewer.Reviewers.Customizations;
 using CodeReviewer.Structures;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,13 @@ namespace CodeReviewer.Engine
         {
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializePrefix(checkTypeReviewerFunc, checkInsideOfTypeReviewerFunc, checkType, stringComparison, prefixes);
+            CustomCodeReviewer.Add(reviewer);
+        }
+
+        public static void AddCustomEnumValuesCodeReviewer(Func<(string Name, int Index, object Value), bool> checkEnumNameAndValueReviewerFunc)
+        {
+            CustomEnumValuesCodeReviewer reviewer = new CustomEnumValuesCodeReviewer();
+            reviewer.Initialize(checkEnumNameAndValueReviewerFunc);
             CustomCodeReviewer.Add(reviewer);
         }
 

@@ -1,5 +1,11 @@
 ﻿namespace CodeReviewer.Samples
 {
+    public enum InvalidGender : byte
+    {
+        Male = 0,
+        Female = 1
+    }
+
     public enum Gender : byte
     {
         None = 0,

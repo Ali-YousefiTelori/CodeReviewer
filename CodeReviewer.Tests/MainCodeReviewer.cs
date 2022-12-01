@@ -30,7 +30,14 @@ namespace CodeReviewer.Tests
 
         [Fact]
         public virtual void MarkupInterfaceReview() => new InterfaceReviewer().MarkupInterfaceReview();
-        
+
+        #endregion
+
+        #region Enums
+
+        [Fact]
+        public virtual void EnumsReview() => new CustomCodeReviewer().CheckCustomEnumValuesCodeReviewer();
+
         #endregion
     }
 }
