@@ -1,6 +1,7 @@
 ﻿using CodeReviewer.Engine;
 using CodeReviewer.Engine.Reviewers.Customizations;
 using CodeReviewer.Reviewers.Customizations;
+using CodeReviewer.Structures;
 using System;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,28 @@ namespace CodeReviewer.Tests
 {
     internal class CustomCodeReviewer
     {
-        /// <summary>
-        /// check custom type code reviewer
-        /// </summary>
-        public void CheckCustomTypeSuffixNamingCodeReviewer()
+        void CheckCustomReviewer(Func<IReviewer, bool> func, Func<Type, bool> typeFunc = null)
         {
+            if (typeFunc == null)
+                typeFunc = x => true;
             StringBuilder builder = new StringBuilder();
-            foreach (CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer in CustomCodeReviewerManager.CustomCodeReviewer.Where(x => x is CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer && reviewer.IsSuffix))
+            foreach (var reviewer in CustomCodeReviewerManager.CustomCodeReviewer.Where(x => func(x)))
             {
-                foreach (Type type in AssemblyManager.GetPublicTypes())
+                foreach (Type type in AssemblyManager.GetPublicTypes().Where(typeFunc))
                 {
                     reviewer.Review(type, builder);
                 }
             }
             if (builder.Length > 0)
                 throw new Exception(builder.ToString());
+        }
+
+        /// <summary>
+        /// check custom type code reviewer
+        /// </summary>
+        public void CheckCustomTypeSuffixNamingCodeReviewer()
+        {
+            CheckCustomReviewer(x => x is CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer && reviewer.IsSuffix);
         }
 
         /// <summary>
@@ -31,16 +39,7 @@ namespace CodeReviewer.Tests
         /// </summary>
         public void CheckCustomTypePrefixNamingCodeReviewer()
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer in CustomCodeReviewerManager.CustomCodeReviewer.Where(x => x is CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer && !reviewer.IsSuffix))
-            {
-                foreach (Type type in AssemblyManager.GetPublicTypes())
-                {
-                    reviewer.Review(type, builder);
-                }
-            }
-            if (builder.Length > 0)
-                throw new Exception(builder.ToString());
+            CheckCustomReviewer(x => x is CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer && !reviewer.IsSuffix);
         }
 
         /// <summary>
@@ -48,16 +47,15 @@ namespace CodeReviewer.Tests
         /// </summary>
         public void CheckCustomEnumValuesCodeReviewer()
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (CustomEnumValuesCodeReviewer reviewer in CustomCodeReviewerManager.CustomCodeReviewer.Where(x => x is CustomEnumValuesCodeReviewer reviewer))
-            {
-                foreach (Type type in AssemblyManager.GetPublicTypes().Where(x => x.IsEnum))
-                {
-                    reviewer.Review(type, builder);
-                }
-            }
-            if (builder.Length > 0)
-                throw new Exception(builder.ToString());
+            CheckCustomReviewer(x => x is CustomEnumValuesCodeReviewer reviewer, x => x.IsEnum);
+        }
+
+        /// <summary>
+        /// check fast custom type code reviewer
+        /// </summary>
+        public void CheckFastCustomCodeReviewer()
+        {
+            CheckCustomReviewer(x => x is FastCustomCodeReviewer reviewer);
         }
     }
 }

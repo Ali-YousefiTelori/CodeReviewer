@@ -65,6 +65,10 @@ namespace CodeReviewer.Engine
             CustomCodeReviewer.Add(reviewer);
         }
 
+        /// <summary>
+        /// Add custom reviewer for your enums types
+        /// </summary>
+        /// <param name="checkEnumNameAndValueReviewerFunc"></param>
         public static void AddCustomEnumValuesCodeReviewer(Func<(string Name, int Index, object Value), bool> checkEnumNameAndValueReviewerFunc)
         {
             CustomEnumValuesCodeReviewer reviewer = new CustomEnumValuesCodeReviewer();
@@ -73,9 +77,19 @@ namespace CodeReviewer.Engine
         }
 
         /// <summary>
+        /// Add a fast custom reviewer to fast implement a custom reviewer
+        /// </summary>
+        /// <param name="checkIsValidFunc"></param>
+        public static void AddFastCustomCodeReviewer(Func<Type, (string Prefix, string Suffix)> checkIsValidFunc)
+        {
+            FastCustomCodeReviewer reviewer = new FastCustomCodeReviewer(checkIsValidFunc);
+            CustomCodeReviewer.Add(reviewer);
+        }
+
+        /// <summary>
         /// skip this type to review
         /// </summary>
-        /// <param name="type">This type will skip to review</param>
+        /// <param name="types">This type will skip to review</param>
         public static void AddTypeToSkipCodeReviewer(params Type[] types)
         {
             SkippedTypesCodeReviewer.AddRange(types);

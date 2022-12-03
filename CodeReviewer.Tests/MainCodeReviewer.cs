@@ -24,6 +24,9 @@ namespace CodeReviewer.Tests
         [Fact]
         public virtual void PrefixCodeReview() => new CustomCodeReviewer().CheckCustomTypePrefixNamingCodeReviewer();
 
+        [Fact]
+        public virtual void FastCustomCodeReview() => new CustomCodeReviewer().CheckFastCustomCodeReviewer();
+
         #endregion
 
         #region Interface

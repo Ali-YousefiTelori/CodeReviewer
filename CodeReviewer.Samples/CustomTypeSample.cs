@@ -28,3 +28,11 @@
     }
 
 }
+
+namespace CodeReviewer.Contract.Common
+{
+    public class CodeReviewerCommonContract
+    {
+
+    }
+}

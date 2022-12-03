@@ -21,6 +21,8 @@ namespace CodeReviewer.TestSamples
             CustomCodeReviewerManager.AddCustomInsideOfTypePrefixNamingCodeReviewer(x => x.IsClass, x => x == typeof(bool), CheckType.PropertyName | CheckType.MethodName | CheckType.FieldName, System.StringComparison.Ordinal, "Has", "Have", "Is", "Can");
             //check names and values and indexes of enum
             CustomCodeReviewerManager.AddCustomEnumValuesCodeReviewer(((string Name, int Index, object Value) Data) => Data.Index != 0 || Data.Name == "None");
+            //check a type details very fast with a reviewer
+            CustomCodeReviewerManager.AddFastCustomCodeReviewer(type => type.Namespace.Contains(".Contract.") ? ("NameSpace of type", "is not a valid namespace!") : default);
         }
 
         #region Pascal Code Reviewer
@@ -94,6 +96,19 @@ namespace CodeReviewer.TestSamples
             catch (Exception ex)
             {
                 Assert.StartsWith("Type of \"CodeReviewer.Samples.CustomTypeSample\" with Property name of \"Passport\" has not used prefix of \"Has\" you have to change it to \"HasPassport\" or prefix of \"Have\" you have to change it to \"HavePassport\" or prefix of \"Is\" you have to change it to \"IsPassport\" or prefix of \"Can\" you have to change it to \"CanPassport\"\r\nType of \"CodeReviewer.Samples.CustomTypeSample\" with Method name of \"Valid\" has not used prefix of \"Has\" you have to change it to \"HasValid\" or prefix of \"Have\" you have to change it to \"HaveValid\" or prefix of \"Is\" you have to change it to \"IsValid\" or prefix of \"Can\" you have to change it to \"CanValid\"", ex.Message);
+            }
+        }
+
+        [Fact]
+        public override void FastCustomCodeReview()
+        {
+            try
+            {
+                base.FastCustomCodeReview();
+            }
+            catch (Exception ex)
+            {
+                Assert.StartsWith("NameSpace of type CodeReviewer.Contract.Common.CodeReviewerCommonContract is not a valid namespace!", ex.Message);
             }
         }
 
