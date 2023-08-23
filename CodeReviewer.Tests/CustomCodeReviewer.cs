@@ -1,5 +1,6 @@
 ﻿using CodeReviewer.Engine;
 using CodeReviewer.Engine.Reviewers.Customizations;
+using CodeReviewer.Engine.Reviewers.Resources;
 using CodeReviewer.Reviewers.Customizations;
 using CodeReviewer.Structures;
 using System;
@@ -15,7 +16,7 @@ namespace CodeReviewer.Tests
             if (typeFunc == null)
                 typeFunc = x => true;
             StringBuilder builder = new StringBuilder();
-            foreach (var reviewer in CustomCodeReviewerManager.CustomCodeReviewer.Where(x => func(x)))
+            foreach (var reviewer in CustomCodeReviewerManager.CustomCodeReviewers.Where(x => func(x)))
             {
                 foreach (Type type in AssemblyManager.GetPublicTypes().Where(typeFunc))
                 {

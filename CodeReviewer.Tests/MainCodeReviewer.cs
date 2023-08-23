@@ -42,5 +42,15 @@ namespace CodeReviewer.Tests
         public virtual void EnumsReview() => new CustomCodeReviewer().CheckCustomEnumValuesCodeReviewer();
 
         #endregion
+
+        #region Resources
+
+        [Fact]
+        public virtual void ResourcesReview() => new ResourceCodeReviewer().CheckResourceCodeReviewer();
+
+        [Fact]
+        public virtual void StreamReview() => new ResourceCodeReviewer().CheckStreamCodeReviewer();
+
+        #endregion
     }
 }
