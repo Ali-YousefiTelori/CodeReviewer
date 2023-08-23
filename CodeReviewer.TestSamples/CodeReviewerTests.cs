@@ -3,6 +3,8 @@ using CodeReviewer.Samples;
 using CodeReviewer.Structures;
 using CodeReviewer.Tests;
 using System;
+using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace CodeReviewer.TestSamples
@@ -23,6 +25,34 @@ namespace CodeReviewer.TestSamples
             CustomCodeReviewerManager.AddCustomEnumValuesCodeReviewer(((string Name, int Index, object Value) Data) => Data.Index != 0 || Data.Name == "None");
             //check a type details very fast with a reviewer
             CustomCodeReviewerManager.AddFastCustomCodeReviewer(type => type.Namespace.Contains(".Contract.") ? ("NameSpace of type", "is not a valid namespace!") : default);
+            //check a resouce file
+            CustomCodeReviewerManager.AddResourceCustomCodeReviewer((string resourceName, Stream resource) =>
+            {
+                using var reader = new StreamReader(resource);
+                {
+                    var text = reader.ReadToEnd();
+                    if (text.Contains("ConnectionString"))
+                        return "ConnectionString detected";
+                    return null;
+                }
+            });
+            MemoryStream memoryStream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(memoryStream);
+            writer.Write("ConnectionString");
+            writer.Flush();
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            AssemblyManager.AddStreamsToReview(memoryStream);
+            //check a resouce file
+            CustomCodeReviewerManager.AddStreamCustomCodeReviewer((Stream resource) =>
+            {
+                using var reader = new StreamReader(resource);
+                {
+                    var text = reader.ReadToEnd();
+                    if (text.Contains("ConnectionString"))
+                        return "ConnectionString detected";
+                    return null;
+                }
+            });
         }
 
         #region Pascal Code Reviewer
@@ -33,6 +63,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.PropertiesReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -46,6 +77,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.TypePascalCodeReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -59,6 +91,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.MethodPascalCodeReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -77,6 +110,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.SuffixCodeReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -92,10 +126,11 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.PrefixCodeReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
-                Assert.StartsWith("Type of \"CodeReviewer.Samples.CustomTypeSample\" with Property name of \"Passport\" has not used prefix of \"Has\" you have to change it to \"HasPassport\" or prefix of \"Have\" you have to change it to \"HavePassport\" or prefix of \"Is\" you have to change it to \"IsPassport\" or prefix of \"Can\" you have to change it to \"CanPassport\"\r\nType of \"CodeReviewer.Samples.CustomTypeSample\" with Method name of \"Valid\" has not used prefix of \"Has\" you have to change it to \"HasValid\" or prefix of \"Have\" you have to change it to \"HaveValid\" or prefix of \"Is\" you have to change it to \"IsValid\" or prefix of \"Can\" you have to change it to \"CanValid\"", ex.Message);
+                Assert.Contains("Type of \"CodeReviewer.Samples.CustomTypeSample\" with Property name of \"Passport\" has not used prefix of \"Has\" you have to change it to \"HasPassport\" or prefix of \"Have\" you have to change it to \"HavePassport\" or prefix of \"Is\" you have to change it to \"IsPassport\" or prefix of \"Can\" you have to change it to \"CanPassport\"\r\nType of \"CodeReviewer.Samples.CustomTypeSample\" with Method name of \"Valid\" has not used prefix of \"Has\" you have to change it to \"HasValid\" or prefix of \"Have\" you have to change it to \"HaveValid\" or prefix of \"Is\" you have to change it to \"IsValid\" or prefix of \"Can\" you have to change it to \"CanValid\"", ex.Message);
             }
         }
 
@@ -105,6 +140,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.FastCustomCodeReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -122,6 +158,7 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.MarkupInterfaceReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
@@ -139,10 +176,43 @@ namespace CodeReviewer.TestSamples
             try
             {
                 base.EnumsReview();
+                Assert.Fail("no message detected!");
             }
             catch (Exception ex)
             {
                 Assert.StartsWith("Enum type of \"CodeReviewer.Samples.InvalidGender\" with name of \"Male\" and index of 0 with value 0 is not valid!", ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Resources
+
+        [Fact]
+        public override void ResourcesReview()
+        {
+            try
+            {
+                base.ResourcesReview();
+                Assert.Fail("no message detected!");
+            }
+            catch (Exception ex)
+            {
+                Assert.StartsWith("ConnectionString detected", ex.Message);
+            }
+        }
+
+        [Fact]
+        public override void StreamReview()
+        {
+            try
+            {
+                base.StreamReview();
+                Assert.Fail("no message detected!");
+            }
+            catch (Exception ex)
+            {
+                Assert.StartsWith("ConnectionString detected", ex.Message);
             }
         }
 

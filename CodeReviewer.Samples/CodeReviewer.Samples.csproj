@@ -1,7 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\AppSettingContent.json" />
+		<None Remove="Resources\AppSettingEmbeddedResource.json" />
+		<None Remove="Resources\AppSettingResource.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Resources\AppSettingContent.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\AppSettingEmbeddedResource.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\AppSettingResource.json" />
+	</ItemGroup>
 
 </Project>

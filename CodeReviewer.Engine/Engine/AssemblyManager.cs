@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -14,6 +15,7 @@ namespace CodeReviewer.Engine
         /// assemblies added for review
         /// </summary>
         static List<Assembly> Assemblies { get; set; } = new List<Assembly>();
+        static List<Stream> Streams { get; set; } = new List<Stream>();
 
         /// <summary>
         /// add list of assemblies to review
@@ -32,6 +34,23 @@ namespace CodeReviewer.Engine
         public static void AddAssemblyToReview(params Type[] types)
         {
             AddAssemblyToReview(types.Select(x => x.Assembly).ToArray());
+        }     
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="streams"></param>
+        public static void AddStreamsToReview(params Stream[] streams)
+        {
+            Streams.AddRange(streams);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static List<Stream> GetStreams()
+        {
+            return Streams;
         }
 
         /// <summary>
@@ -54,7 +73,7 @@ namespace CodeReviewer.Engine
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    if (CustomCodeReviewerManager.SkippedTypesCodeReviewer.Contains(type))
+                    if (CustomCodeReviewerManager.SkippedTypesCodeReviewers.Contains(type))
                         continue;
                     properties.Add(type);
                 }

@@ -1,15 +1,20 @@
 ﻿using CodeReviewer.Engine.Reviewers.Customizations;
+using CodeReviewer.Engine.Reviewers.Resources;
 using CodeReviewer.Reviewers.Customizations;
 using CodeReviewer.Structures;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace CodeReviewer.Engine
 {
     public static class CustomCodeReviewerManager
     {
-        public static List<IReviewer> CustomCodeReviewer { get; } = new List<IReviewer>();
-        internal static List<Type> SkippedTypesCodeReviewer { get; } = new List<Type>();
+        public static List<IReviewer> CustomCodeReviewers { get; } = new List<IReviewer>();
+        public static List<IReviewer<Assembly>> ResourceCodeReviewers { get; } = new List<IReviewer<Assembly>>();
+        public static List<IReviewer<Stream>> StreamCodeReviewers { get; } = new List<IReviewer<Stream>>();
+        internal static List<Type> SkippedTypesCodeReviewers { get; } = new List<Type>();
 
         /// <summary>
         /// check suffix text naming of custom types
@@ -21,7 +26,7 @@ namespace CodeReviewer.Engine
         {
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializeSuffix(checkTypeReviewerFunc, null, checkType, stringComparison, suffixes);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace CodeReviewer.Engine
         {
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializeSuffix(checkTypeReviewerFunc, checkInsideOfTypeReviewerFunc, checkType, stringComparison, suffixes);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace CodeReviewer.Engine
         {
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializePrefix(checkTypeReviewerFunc, null, checkType, stringComparison, prefixes);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -62,7 +67,7 @@ namespace CodeReviewer.Engine
         {
             CustomTypeSuffixAndPrefixNamingCodeReviewer reviewer = new CustomTypeSuffixAndPrefixNamingCodeReviewer();
             reviewer.InitializePrefix(checkTypeReviewerFunc, checkInsideOfTypeReviewerFunc, checkType, stringComparison, prefixes);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace CodeReviewer.Engine
         {
             CustomEnumValuesCodeReviewer reviewer = new CustomEnumValuesCodeReviewer();
             reviewer.Initialize(checkEnumNameAndValueReviewerFunc);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -83,7 +88,27 @@ namespace CodeReviewer.Engine
         public static void AddFastCustomCodeReviewer(Func<Type, (string Prefix, string Suffix)> checkIsValidFunc)
         {
             FastCustomCodeReviewer reviewer = new FastCustomCodeReviewer(checkIsValidFunc);
-            CustomCodeReviewer.Add(reviewer);
+            CustomCodeReviewers.Add(reviewer);
+        }
+
+        /// <summary>
+        /// Add an assembly resource reviewer
+        /// </summary>
+        /// <param name="checkIsValidFunc"></param>
+        public static void AddResourceCustomCodeReviewer(Func<string, Stream, string> checkIsValidFunc)
+        {
+            ResourceCodeReviewer reviewer = new ResourceCodeReviewer(checkIsValidFunc);
+            ResourceCodeReviewers.Add(reviewer);
+        }
+
+        /// <summary>
+        /// Add a stream resource reviewer
+        /// </summary>
+        /// <param name="checkIsValidFunc"></param>
+        public static void AddStreamCustomCodeReviewer(Func<Stream, string> checkIsValidFunc)
+        {
+            StreamCodeReviewer reviewer = new StreamCodeReviewer(checkIsValidFunc);
+            StreamCodeReviewers.Add(reviewer);
         }
 
         /// <summary>
@@ -92,7 +117,7 @@ namespace CodeReviewer.Engine
         /// <param name="types">This type will skip to review</param>
         public static void AddTypeToSkipCodeReviewer(params Type[] types)
         {
-            SkippedTypesCodeReviewer.AddRange(types);
+            SkippedTypesCodeReviewers.AddRange(types);
         }
     }
 }
