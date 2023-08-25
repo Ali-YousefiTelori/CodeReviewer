@@ -27,6 +27,17 @@
             </summary>
             <param name="types">types that you want to add assemblies of types</param>
         </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.AddStreamsToReview(System.IO.Stream[])">
+            <summary>
+            
+            </summary>
+            <param name="streams"></param>
+        </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetStreams">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:CodeReviewer.Engine.AssemblyManager.GetAssemblies">
             <summary>
             get list of assemblies
@@ -51,6 +62,70 @@
             </summary>
             <returns>list of all types properties</returns>
         </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddCustomTypeSuffixNamingCodeReviewer(System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check suffix text naming of custom types
+            </summary>
+            <param name="suffixes">suffixes names you want to be in end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this suffix</param>
+            <param name="checkType">types of you want to check in c#</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddCustomInsideOfTypeSuffixNamingCodeReviewer(System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check suffix text naming of custom types
+            </summary>
+            <param name="suffixes">suffixes names you want to be in end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this suffix</param>
+            <param name="checkInsideOfTypeReviewerFunc">everytypes inside of the main type come here, return true for any type you want check this suffix</param>
+            <param name="checkType">types of you want to check in c#</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddCustomTypePrefixNamingCodeReviewer(System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check prefix text naming of custom types
+            </summary>
+            <param name="prefixes">prefixes names you want to be in end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this prefix</param>
+            <param name="checkType">types of you want to check in c#</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddCustomInsideOfTypePrefixNamingCodeReviewer(System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check prefix text naming of custom types
+            </summary>
+            <param name="prefixes">prefixes names you want to be in end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this prefix</param>
+            <param name="checkInsideOfTypeReviewerFunc">everytypes inside of the main type come here, return true for any type you want check this prefix</param>
+            <param name="checkType">types of you want to check in c#</param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddCustomEnumValuesCodeReviewer(System.Func{System.ValueTuple{System.String,System.Int32,System.Object},System.Boolean})">
+            <summary>
+            Add custom reviewer for your enums types
+            </summary>
+            <param name="checkEnumNameAndValueReviewerFunc"></param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddFastCustomCodeReviewer(System.Func{System.Type,System.ValueTuple{System.String,System.String}})">
+            <summary>
+            Add a fast custom reviewer to fast implement a custom reviewer
+            </summary>
+            <param name="checkIsValidFunc"></param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddResourceCustomCodeReviewer(System.Func{System.String,System.IO.Stream,System.String})">
+            <summary>
+            Add an assembly resource reviewer
+            </summary>
+            <param name="checkIsValidFunc"></param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddStreamCustomCodeReviewer(System.Func{System.IO.Stream,System.String})">
+            <summary>
+            Add a stream resource reviewer
+            </summary>
+            <param name="checkIsValidFunc"></param>
+        </member>
+        <member name="M:CodeReviewer.Engine.CustomCodeReviewerManager.AddTypeToSkipCodeReviewer(System.Type[])">
+            <summary>
+            skip this type to review
+            </summary>
+            <param name="types">This type will skip to review</param>
+        </member>
         <member name="T:CodeReviewer.Engine.TypeManager">
             <summary>
             manage types at runtime
@@ -69,6 +144,42 @@
             </summary>
             <param name="type"></param>
             <returns></returns>
+        </member>
+        <member name="T:CodeReviewer.Engine.Reviewers.Customizations.CustomEnumValuesCodeReviewer">
+            <summary>
+            Customize check of your enums
+            </summary>
+            <typeparam name="T">type of Enum to check</typeparam>
+        </member>
+        <member name="M:CodeReviewer.Engine.Reviewers.Customizations.CustomEnumValuesCodeReviewer.Initialize(System.Func{System.ValueTuple{System.String,System.Int32,System.Object},System.Boolean})">
+            <summary>
+            Initialize check enum name and values
+            </summary>
+            <param name="checkEnumNameAndValueReviewerFunc">function to check enum name and values, if you return true it means true</param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:CodeReviewer.Reviewers.Customizations.CustomTypeSuffixAndPrefixNamingCodeReviewer">
+            <summary>
+            check suffix text naming of custom types
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.Customizations.CustomTypeSuffixAndPrefixNamingCodeReviewer.InitializeSuffix(System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check suffix text naming of custom types
+            </summary>
+            <param name="acceptedSufixes">suffixes name you want to be end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this suffix</param>
+            <param name="checkInsideOfTypeReviewerFunc">everytypes inside of the main type come here, return true for any type you want check this suffix</param>
+            <param name="checkType">types of you want to check in c#</param>
+        </member>
+        <member name="M:CodeReviewer.Reviewers.Customizations.CustomTypeSuffixAndPrefixNamingCodeReviewer.InitializePrefix(System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},CodeReviewer.Structures.CheckType,System.StringComparison,System.String[])">
+            <summary>
+            check prefix text naming of custom types
+            </summary>
+            <param name="acceptedSufixes">prefixes name you want to be end of type name conventions</param>
+            <param name="checkTypeReviewerFunc">everytypes come here, return true for any type you want check this prefix</param>
+            <param name="checkInsideOfTypeReviewerFunc">everytypes inside of the main type come here, return true for any type you want check this prefix</param>
+            <param name="checkType">types of you want to check in c#</param>
         </member>
         <member name="T:CodeReviewer.Reviewers.NamingConventions.CamelCodeBaseReviewer`1">
             <summary>
@@ -132,7 +243,7 @@
             <param name="reviewData"></param>
             <param name="builder"></param>
         </member>
-        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1.Review(System.String,System.String,System.Text.StringBuilder)">
+        <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeBaseReviewer`1.Review(System.Type,System.String,System.String,System.Text.StringBuilder)">
             <summary>
             review a name with a PascalCase
             </summary>
@@ -175,6 +286,11 @@
             <param name="property">property to check and review</param>
             <param name="builder">add errors to builder</param>
         </member>
+        <member name="T:CodeReviewer.Reviewers.NamingConventions.PascalCodeTypeReviewer">
+            <summary>
+            check pascal case of types
+            </summary>
+        </member>
         <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeTypeReviewer.#ctor">
             <summary>
             initialize
@@ -182,9 +298,9 @@
         </member>
         <member name="M:CodeReviewer.Reviewers.NamingConventions.PascalCodeTypeReviewer.Review(System.Type,System.Text.StringBuilder)">
             <summary>
-            Review a property name
+            Review a type name
             </summary>
-            <param name="property">property to check and review</param>
+            <param name="type">type to check and review</param>
             <param name="builder">add errors to builder</param>
         </member>
         <member name="T:CodeReviewer.Structures.IReviewer`1">
@@ -194,6 +310,19 @@
             <typeparam name="T">type of object to review</typeparam>
         </member>
         <member name="M:CodeReviewer.Structures.IReviewer`1.Review(`0,System.Text.StringBuilder)">
+            <summary>
+            do the review of code
+            </summary>
+            <param name="builder">add exceptions and reviews of codes on this builder</param>
+            <param name="reviewData">data of object to review</param>
+            <returns>When it has error return true</returns>
+        </member>
+        <member name="T:CodeReviewer.Structures.IReviewer">
+            <summary>
+            Build a Viewer for a work
+            </summary>
+        </member>
+        <member name="M:CodeReviewer.Structures.IReviewer.Review(System.Object,System.Text.StringBuilder)">
             <summary>
             do the review of code
             </summary>

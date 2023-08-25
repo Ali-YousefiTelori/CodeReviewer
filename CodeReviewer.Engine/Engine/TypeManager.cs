@@ -11,6 +11,15 @@ namespace CodeReviewer.Engine
     public static class TypeManager
     {
         /// <summary>
+        /// if type are in assemblt manager
+        /// </summary>
+        /// <returns></returns>
+        public static bool CanReview(Type type)
+        {
+            return AssemblyManager.GetCachedPublicTypes().Any(x => x == type);
+        }
+
+        /// <summary>
         /// get list of methods of type
         /// </summary>
         /// <param name="type"></param>
@@ -19,7 +28,10 @@ namespace CodeReviewer.Engine
         {
             List<MethodInfo> objectMethods = typeof(object).GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).ToList();
             return type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                .Where(x => !x.IsSpecialName).Where(x => !objectMethods.Any(om => om.Name == x.Name)).ToList();
+                .Where(x => !x.IsSpecialName)
+                .Where(x => !objectMethods.Any(om => om.Name == x.Name))
+                .Where(x => CanReview(x.DeclaringType))
+                .ToList();
         }
 
         /// <summary>
@@ -29,7 +41,9 @@ namespace CodeReviewer.Engine
         /// <returns></returns>
         public static List<PropertyInfo> GetPublicProperties(this Type type)
         {
-            return type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).ToList();
+            return type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
+                .Where(x => CanReview(x.DeclaringType))
+                .ToList();
         }
     }
 }

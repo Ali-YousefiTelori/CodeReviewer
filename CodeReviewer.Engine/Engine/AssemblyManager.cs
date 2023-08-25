@@ -62,23 +62,35 @@ namespace CodeReviewer.Engine
             return Assemblies.ToList();
         }
 
+        static List<Type> CachedTypes { get; set; }
         /// <summary>
         /// get list of types of assemblies
         /// </summary>
         /// <returns>list of all types</returns>
         public static List<Type> GetPublicTypes()
         {
-            List<Type> properties = new List<Type>();
+            List<Type> types = new List<Type>();
             foreach (Assembly assembly in GetAssemblies())
             {
                 foreach (Type type in assembly.GetTypes())
                 {
                     if (CustomCodeReviewerManager.SkippedTypesCodeReviewers.Contains(type))
                         continue;
-                    properties.Add(type);
+                    types.Add(type);
                 }
             }
-            return properties;
+            return types;
+        }
+
+        /// <summary>
+        /// get list of cached types of assemblies
+        /// </summary>
+        /// <returns>list of all types</returns>
+        public static List<Type> GetCachedPublicTypes()
+        {
+            if (CachedTypes == null)
+                CachedTypes = GetPublicTypes();
+            return CachedTypes;
         }
 
         /// <summary>
