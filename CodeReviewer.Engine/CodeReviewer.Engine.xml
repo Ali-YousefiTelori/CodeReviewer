@@ -50,6 +50,12 @@
             </summary>
             <returns>list of all types</returns>
         </member>
+        <member name="M:CodeReviewer.Engine.AssemblyManager.GetCachedPublicTypes">
+            <summary>
+            get list of cached types of assemblies
+            </summary>
+            <returns>list of all types</returns>
+        </member>
         <member name="M:CodeReviewer.Engine.AssemblyManager.GetPublicProperties">
             <summary>
             get list of properties of assemblies types
@@ -130,6 +136,12 @@
             <summary>
             manage types at runtime
             </summary>
+        </member>
+        <member name="M:CodeReviewer.Engine.TypeManager.CanReview(System.Type)">
+            <summary>
+            if type are in assemblt manager
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:CodeReviewer.Engine.TypeManager.GetPublicMethods(System.Type)">
             <summary>

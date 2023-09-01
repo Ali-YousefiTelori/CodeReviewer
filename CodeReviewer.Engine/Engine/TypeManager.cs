@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace CodeReviewer.Engine
 {
@@ -28,6 +29,7 @@ namespace CodeReviewer.Engine
         {
             List<MethodInfo> objectMethods = typeof(object).GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).ToList();
             return type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                .Where(x => x.GetCustomAttribute(typeof(CompilerGeneratedAttribute), true) == null)
                 .Where(x => !x.IsSpecialName)
                 .Where(x => !objectMethods.Any(om => om.Name == x.Name))
                 .Where(x => CanReview(x.DeclaringType))
@@ -42,7 +44,7 @@ namespace CodeReviewer.Engine
         public static List<PropertyInfo> GetPublicProperties(this Type type)
         {
             return type.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
-                .Where(x => CanReview(x.DeclaringType))
+                .Where(x => x.GetCustomAttribute(typeof(CompilerGeneratedAttribute), true) == null && CanReview(x.DeclaringType))
                 .ToList();
         }
     }

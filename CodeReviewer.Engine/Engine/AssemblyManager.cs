@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace CodeReviewer.Engine
 {
@@ -74,7 +75,7 @@ namespace CodeReviewer.Engine
             {
                 foreach (Type type in assembly.GetTypes())
                 {
-                    if (CustomCodeReviewerManager.SkippedTypesCodeReviewers.Contains(type))
+                    if (CustomCodeReviewerManager.SkippedTypesCodeReviewers.Contains(type) || type.GetCustomAttribute(typeof(CompilerGeneratedAttribute), true) != null)
                         continue;
                     types.Add(type);
                 }

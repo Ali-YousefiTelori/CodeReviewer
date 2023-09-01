@@ -94,7 +94,7 @@ namespace CodeReviewer.Reviewers.Customizations
                     {
                         foreach (FieldInfo field in reviewType.GetRuntimeFields())
                         {
-                            if (!field.GetCustomAttributes().Any(att => att is CompilerGeneratedAttribute) && _checkInsideOfTypeReviewerFunc(field.FieldType) && CheckHasErrorsOnSuffixOrPrefix(field.Name, out errorCaptions))
+                            if (field.GetCustomAttribute(typeof(CompilerGeneratedAttribute), true) == null && _checkInsideOfTypeReviewerFunc(field.FieldType) && CheckHasErrorsOnSuffixOrPrefix(field.Name, out errorCaptions))
                             {
                                 builder.AppendLine($"Type of \"{reviewType.FullName}\" with Field name of \"{field.Name}\" has not used {string.Join(" or ", errorCaptions)}");
                                 hasError = true;

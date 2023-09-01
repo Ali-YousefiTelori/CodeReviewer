@@ -1,5 +1,6 @@
 ﻿using CodeReviewer.Reviewers.Customizations;
 using System;
+using System.IO.Compression;
 using System.Text;
 
 namespace CodeReviewer.Engine.Reviewers.Customizations
@@ -16,11 +17,19 @@ namespace CodeReviewer.Engine.Reviewers.Customizations
 
         public override bool Review(Type reviewData, StringBuilder builder)
         {
-            var result = _checkIsValidFunc(reviewData);
-            if (string.IsNullOrEmpty(result.Suffix) && string.IsNullOrEmpty(result.Prefix))
-                return false;
-            builder.AppendLine($"{result.Prefix} {reviewData.FullName} {result.Suffix}");
-            return true;
+            try
+            {
+                var result = _checkIsValidFunc(reviewData);
+                if (string.IsNullOrEmpty(result.Suffix) && string.IsNullOrEmpty(result.Prefix))
+                    return false;
+                builder.AppendLine($"{result.Prefix} {reviewData.FullName} {result.Suffix}");
+                return true;
+            }
+            catch (Exception)
+            {
+
+            }
+            return default;
         }
     }
 }
