@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>CodeReviewer</RootNamespace>
     <PackageId>CodeReviewer</PackageId>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>Ali Yousefi Telori</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Product>CodeReviewer</Product>
     <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
     <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
@@ -31,11 +31,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="xunit.core" Version="2.4.2" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <!--<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <ProjectReference Include="..\CodeReviewer.Engine\CodeReviewer.Engine.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>

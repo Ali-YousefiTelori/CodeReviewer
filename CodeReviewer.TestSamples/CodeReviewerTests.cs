@@ -2,9 +2,12 @@
 using CodeReviewer.Samples;
 using CodeReviewer.Structures;
 using CodeReviewer.Tests;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using Xunit;
 
 namespace CodeReviewer.TestSamples
@@ -52,6 +55,34 @@ namespace CodeReviewer.TestSamples
                         return "ConnectionString detected";
                     return null;
                 }
+            });
+
+
+
+            var currentDir = AppDomain.CurrentDomain.BaseDirectory;
+            var parentDir = Path.GetFullPath(Path.Combine(currentDir, @"..\"));
+            var grandparentDir = Path.GetFullPath(Path.Combine(parentDir, @"..\"));
+            var greatGrandparentDir = Path.GetFullPath(Path.Combine(grandparentDir, @"..\"));
+            var greatGrandGrandparentDir = Path.GetFullPath(Path.Combine(greatGrandparentDir, @"..\"));
+            var filePath = Path.Combine(greatGrandGrandparentDir, "CodeReviewer.Samples", "CodeAnalysisExample.cs");
+            //"CodeAnalysisExample.cs"
+            string sourceCode = File.ReadAllText(filePath);
+
+            SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(sourceCode);
+
+            var root = syntaxTree.GetRoot();
+
+            var classDeclarations = root.DescendantNodes().OfType<ClassDeclarationSyntax>();
+
+
+            CsharpCodeAnalysisManager.AddMemberCsharpCodeAnalysisCodeReviewer(classDeclarations, x =>
+            {
+                if (x.Kind() == SyntaxKind.FieldDeclaration)
+                {
+                    if (string.IsNullOrEmpty(x.Modifiers.FirstOrDefault().Text))
+                        return ("Class", "Has no access modifier");
+                }
+                return default;
             });
         }
 
@@ -217,5 +248,18 @@ namespace CodeReviewer.TestSamples
         }
 
         #endregion
+
+        public override void CsharpCodeAnalysisReview()
+        {
+            try
+            {
+                base.CsharpCodeAnalysisReview();
+                Assert.Fail("no message detected!");
+            }
+            catch (Exception ex)
+            {
+                Assert.EndsWith("Has no access modifier\r\n", ex.Message);
+            }
+        }
     }
 }

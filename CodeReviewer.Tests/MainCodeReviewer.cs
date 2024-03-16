@@ -52,5 +52,12 @@ namespace CodeReviewer.Tests
         public virtual void StreamReview() => new ResourceCodeReviewer().CheckStreamCodeReviewer();
 
         #endregion
+
+        #region CsharpCodeAnalysisReview
+
+        [Fact]
+        public virtual void CsharpCodeAnalysisReview() => new CsharpCodeAnalysisReviewer().CsharpCodeAnalysisReview();
+
+        #endregion
     }
 }
