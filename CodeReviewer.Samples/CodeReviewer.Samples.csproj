@@ -3,7 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
-	</PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<None Remove="Resources\AppSettingContent.json" />
