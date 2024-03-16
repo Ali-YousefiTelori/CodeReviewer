@@ -13,8 +13,6 @@ jobs:
           dotnet-version: |
             6.0.x
             3.1.x
-            5.0.x
-            4.8.x
 
       - name: Restore dependencies
         run: dotnet restore ./CodeReviewer.sln
