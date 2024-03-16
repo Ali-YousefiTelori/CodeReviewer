@@ -6,7 +6,6 @@
     <PackageId>CodeReviewer</PackageId>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>Ali Yousefi Telori</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <Version>1.1.3</Version>
     <Product>CodeReviewer</Product>
