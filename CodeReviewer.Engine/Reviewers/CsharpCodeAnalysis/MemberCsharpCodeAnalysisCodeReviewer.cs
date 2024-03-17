@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 using System;
 using System.Linq;
 using System.Text;
@@ -35,11 +36,24 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
 
         string GetText(MemberDeclarationSyntax member)
         {
-            var memberText = member.GetText()?.Lines?.FirstOrDefault();
+            var memberText = GetNotEmptyMonth(member.GetText()?.Lines);
             var text = memberText?.ToString();
             if (string.IsNullOrEmpty(text))
-                return member.ToString();
+                return member.ToString().Trim();
             return text.ToString();
+        }
+
+        string GetNotEmptyMonth(TextLineCollection textLines)
+        {
+            if (textLines == null)
+                return null;
+            for (int i = 0; i < textLines.Count; i++)
+            {
+                var text = textLines?.Skip(i)?.FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(text?.ToString()))
+                    return text.ToString().Trim();
+            }
+            return null;
         }
     }
 }
