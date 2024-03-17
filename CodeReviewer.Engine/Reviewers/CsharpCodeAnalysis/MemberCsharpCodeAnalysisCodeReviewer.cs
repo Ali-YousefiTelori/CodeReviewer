@@ -34,7 +34,7 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
             return hasError;
         }
 
-        string GetText(MemberDeclarationSyntax member)
+        public static string GetText(MemberDeclarationSyntax member)
         {
             var memberText = GetNotEmptyMonth(member.GetText()?.Lines);
             var text = memberText?.ToString();
@@ -43,14 +43,14 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
             return text.ToString();
         }
 
-        string GetNotEmptyMonth(TextLineCollection textLines)
+        public static string GetNotEmptyMonth(TextLineCollection textLines)
         {
             if (textLines == null)
                 return null;
             for (int i = 0; i < textLines.Count; i++)
             {
                 var text = textLines?.Skip(i)?.FirstOrDefault();
-                if (!string.IsNullOrWhiteSpace(text?.ToString()))
+                if (!string.IsNullOrWhiteSpace(text?.ToString()) && !text.ToString().Contains("["))
                     return text.ToString().Trim();
             }
             return null;
