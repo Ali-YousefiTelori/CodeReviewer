@@ -6,7 +6,7 @@
     <PackageId>CodeReviewer</PackageId>
     <Authors>Ali Yousefi Telori</Authors>
     <IsPackable>true</IsPackable>
-    <Version>1.1.9</Version>
+    <Version>1.2.100</Version>
     <Product>CodeReviewer</Product>
     <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
     <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
