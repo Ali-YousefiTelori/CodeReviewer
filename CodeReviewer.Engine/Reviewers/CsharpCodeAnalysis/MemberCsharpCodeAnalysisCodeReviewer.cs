@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
@@ -26,10 +27,19 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
                 var namespaceDeclaration = reviewData.Parent as BaseNamespaceDeclarationSyntax;
                 var namespaceName = namespaceDeclaration?.Name.ToString() ?? "";
 
-                builder.AppendLine($"{result.Prefix} {namespaceName}.{className} Of member [{member}] {result.Suffix}");
+                builder.AppendLine($"{result.Prefix} {namespaceName}.{className} Of member [{GetText(member)}] {result.Suffix}");
                 hasError = true;
             }
             return hasError;
+        }
+
+        string GetText(MemberDeclarationSyntax member)
+        {
+            var memberText = member.GetText()?.Lines?.FirstOrDefault();
+            var text = memberText?.ToString();
+            if (string.IsNullOrEmpty(text))
+                return member.ToString();
+            return text.ToString();
         }
     }
 }
