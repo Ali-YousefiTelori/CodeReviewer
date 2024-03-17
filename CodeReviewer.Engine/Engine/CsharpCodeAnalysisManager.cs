@@ -15,7 +15,7 @@ namespace CodeReviewer.Engine
         /// </summary>
         /// <param name="classes"></param>
         /// <param name="checkIsValidFunc"></param>
-        public static void AddMemberCsharpCodeAnalysisCodeReviewer(IEnumerable<ClassDeclarationSyntax> classes, Func<MemberDeclarationSyntax, (string Prefix, string Suffix, bool IsHandled)> checkIsValidFunc)
+        public static void AddMemberCsharpCodeAnalysisCodeReviewer(IEnumerable<ClassDeclarationSyntax> classes, Func<ClassDeclarationSyntax, MemberDeclarationSyntax, (string Prefix, string Suffix, bool IsHandled)> checkIsValidFunc)
         {
             MemberCsharpCodeAnalysisCodeReviewer reviewer = new MemberCsharpCodeAnalysisCodeReviewer(checkIsValidFunc);
             CsharpCodeAnalysisReviewers.Add(reviewer, classes);

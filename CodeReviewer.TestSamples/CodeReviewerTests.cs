@@ -75,7 +75,7 @@ namespace CodeReviewer.TestSamples
             var classDeclarations = root.DescendantNodes().OfType<ClassDeclarationSyntax>();
 
 
-            CsharpCodeAnalysisManager.AddMemberCsharpCodeAnalysisCodeReviewer(classDeclarations, x =>
+            CsharpCodeAnalysisManager.AddMemberCsharpCodeAnalysisCodeReviewer(classDeclarations, (c, x) =>
             {
                 if (x.Kind() == SyntaxKind.FieldDeclaration)
                 {

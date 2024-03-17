@@ -5,7 +5,7 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Authors>Ali Yousefi Telori</Authors>
     <IsPackable>false</IsPackable>
-    <Version>1.1.7</Version>
+    <Version>1.1.8</Version>
     <Product>CodeReviewer.Engine</Product>
     <Description>Review your codes like pascal case of properties and class names etc with Test cases</Description>
     <PackageProjectUrl>https://github.com/Ali-YousefiTelori/CodeReviewer</PackageProjectUrl>
