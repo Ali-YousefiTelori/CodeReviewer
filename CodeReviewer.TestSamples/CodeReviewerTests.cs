@@ -80,7 +80,7 @@ namespace CodeReviewer.TestSamples
                 if (x.Kind() == SyntaxKind.FieldDeclaration)
                 {
                     if (string.IsNullOrEmpty(x.Modifiers.FirstOrDefault().Text))
-                        return ("Class", "Has no access modifier");
+                        return ("Class", "Has no access modifier", false);
                 }
                 return default;
             });

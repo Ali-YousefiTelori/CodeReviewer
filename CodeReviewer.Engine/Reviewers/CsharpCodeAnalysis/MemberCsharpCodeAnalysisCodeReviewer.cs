@@ -8,8 +8,8 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
 {
     public class MemberCsharpCodeAnalysisCodeReviewer : CsharpCodeAnalysisBaseReviewer
     {
-        Func<MemberDeclarationSyntax, (string Prefix, string Suffix)> _checkIsValidFunc;
-        public MemberCsharpCodeAnalysisCodeReviewer(Func<MemberDeclarationSyntax, (string Prefix, string Suffix)> checkIsValidFunc)
+        Func<MemberDeclarationSyntax, (string Prefix, string Suffix, bool IsHandled)> _checkIsValidFunc;
+        public MemberCsharpCodeAnalysisCodeReviewer(Func<MemberDeclarationSyntax, (string Prefix, string Suffix, bool IsHandled)> checkIsValidFunc)
         {
             if (checkIsValidFunc == null)
                 throw new ArgumentNullException(nameof(checkIsValidFunc));
@@ -22,7 +22,7 @@ namespace CodeReviewer.Engine.Reviewers.CsharpCodeAnalysis
             foreach (var member in reviewData.Members)
             {
                 var result = _checkIsValidFunc(member);
-                if (string.IsNullOrEmpty(result.Suffix) && string.IsNullOrEmpty(result.Prefix))
+                if (result.IsHandled || (string.IsNullOrEmpty(result.Suffix) && string.IsNullOrEmpty(result.Prefix)))
                     continue;
                 var className = reviewData.Identifier.ValueText;
                 var namespaceDeclaration = reviewData.Parent as BaseNamespaceDeclarationSyntax;
